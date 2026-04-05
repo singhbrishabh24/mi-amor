@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Love ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+  text-align: center;
+  color: white;
+  overflow: hidden;
+}
+
+.container {
+  padding: 50px;
+  position: relative;
+  z-index: 2;
+}
+
+.btn {
+  padding: 12px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 20px;
+  background: white;
+  color: #ff6b81;
+  cursor: pointer;
+}
+
+/* Rain */
+.rain {
+  position: fixed;
+  top: -50px;
+  font-size: 24px;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to { transform: translateY(100vh); }
+}
+
+/* Popup */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background: white;
+  color: black;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+/* Slideshow */
+.slideshow img {
+  width: 200px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+#timer {
+  margin-top: 15px;
+  font-size: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Hey Myyy mi amor  ❤️</h1>
+  <button class="btn" onclick="openPopup()">Click Me 💌</button>
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+
+    <h2>Choose One 💖</h2>
+
+    <button class="btn" onclick="showLetter()">💌 Letter</button>
+    <button class="btn" onclick="showGift()">💐 Bouquet</button>
+    <button class="btn" onclick="showLove()">❤️ Do You Love Me</button>
+
+    <div id="result"></div>
+
+  </div>
+</div>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+  <source src="song.mp3" type="audio/mp3">
+</audio>
+
+<script>
+// ❄️🦋💜🌸 RAIN
+let emojis = ["🦋","💜","🌸","❄️"];
+
+setInterval(()=>{
+  let drop = document.createElement("div");
+  drop.className="rain";
+  drop.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+  drop.style.left = Math.random()*100+"vw";
+  drop.style.animationDuration = (2+Math.random()*3)+"s";
+  document.body.appendChild(drop);
+  setTimeout(()=>drop.remove(),5000);
+},150);
+
+// 🎵 POPUP
+function openPopup(){
+  document.getElementById("popup").style.display="flex";
+  document.getElementById("music").play().catch(()=>{});
+}
+
+// 💌 LETTER
+function showLetter(){
+  document.getElementById("result").innerHTML =
+  "Heyyy myyy mi amor 🦋 What happened actually wid u  ur not replying back, not a single call from ur side from last month, not even we met from the last month i am worrying about all this why ur avoiding to meet me. Tannu the way u apologize for ur mistake which was not intentonally done and aftet that always u say sorry for every single mistakes I was fallen in love even more by this i can't see myself without you in my heart there lots of love for u in my heart which is so pure and so pure intention towards u tannu ur so so special for me all my wish is to spend a whole life wid u to walking  wid u  in a midnight, never i sayy this all to u coz I am little bit shy but I don't want let u go from my life I want u be wid me forever ♾️ I am always this side for u I am giving  u surety of from this side  I am never giving u  any kind of heartbreak now at this point I want to hug you so tight and tell you how much I am missing you right now  tannu I am all urs from this point nd the one thing the  name mi amor is so close to my heart, this is so special for me lots of love and i love u so much myyyMy mi amor🦋 👉🏼👈🏼<br>";
+}
+
+// 💐 BOUQUET
+function showGift(){
+  document.getElementById("result").innerHTML =
+  `<h3>For You 🌸🌺🪷</h3>
+   <img src="https://images.unsplash.com/photo-1526045612212-70caf35c14df" width="200"><br>
+   I wish I could give you this in real 💖`;
+}
+
+// ❤️ LOVE QUESTION
+function showLove(){
+  document.getElementById("result").innerHTML =
+  `<h3>Do you love me? 😘</h3>
+   <button onclick="yes()">Yes ❤️</button>
+   <button id="noBtn" onmouseover="moveNo()">No 😜</button>`;
+}
+
+function yes(){
+  alert("I love you tannu till my last breath❤️");
+}
+
+// 😂 NO BUTTON ADVANCED
+let attempts = 0;
+
+function moveNo(){
+  let btn = document.getElementById("noBtn");
+
+  attempts++;
+
+  let maxX = window.innerWidth - 100;
+  let maxY = window.innerHeight - 50;
+
+  btn.style.position = "absolute";
+  btn.style.left = Math.random() * maxX + "px";
+  btn.style.top = Math.random() * maxY + "px";
+
+  if(attempts > 10){
+    btn.innerText = "chl jhoothi😜";
+  }
+  if(attempts > 20){
+    btn.innerText = "sachii batao 😂";
+  }
+  if(attempts > 30){
+    btn.innerText = "Give up karo do 😏";
+  }
+}
+
+// BONUS 😈 mouse dodge
+document.addEventListener("mousemove", function(e){
+  let btn = document.getElementById("noBtn");
+  if(!btn) return;
+
+  let rect = btn.getBoundingClientRect();
+
+  if(
+    e.clientX > rect.left - 50 &&
+    e.clientX < rect.right + 50 &&
+    e.clientY > rect.top - 50 &&
+    e.clientY < rect.bottom + 50
+  ){
+    moveNo();
+  }
+});
+
+// 📸 SLIDESHOW
+let images = [
+  "https://via.placeholder.com/200",
+  "https://via.placeholder.com/200/ff6b81",
+  "https://via.placeholder.com/200/fad0c4"
+];
+
+let index = 0;
+
+function startSlideshow(){
+  let div = document.createElement("div");
+  div.className="slideshow";
+  let img = document.createElement("img");
+  div.appendChild(img);
+  document.getElementById("result").appendChild(div);
+
+  setInterval(()=>{
+    img.src = images[index];
+    index = (index+1)%images.length;
+  },1000);
+}
+
+setTimeout(startSlideshow,2000);
+
+// ⏳ LOVE TIMER
+let startDate = new Date("2025-09-25"); // CHANGE THIS
+
+let count = 0;
+
+let timerInterval = setInterval(()=>{
+  let now = new Date();
+  let diff = now - startDate;
+
+  let days = Math.floor(diff/(1000*60*60*24));
+  let hours = Math.floor((diff/(1000*60*60))%24);
+
+  document.getElementById("result").innerHTML +=
+  `<div id="timer">Together for ${days} days ${hours} hours ❤️</div>`;
+
+  count++;
+
+  if(count >= 23){
+    clearInterval(timerInterval); // stop after 23 times
+  }
+
+},5000);
+
+</script>
+
+</body>
+</html>
